@@ -5,7 +5,7 @@ const AppHeader = () => {
     return <h1>My todo list</h1>;
 }
 
-const InputSearch = () => {
+const SearchPanel = () => {
     return <input  placeholder="Search"/>;
 }
 
@@ -23,7 +23,7 @@ const App = () => {
     return (
         <div>
             <AppHeader />
-            <InputSearch />
+            <SearchPanel />
             <TodoList />
         </div>
     )
