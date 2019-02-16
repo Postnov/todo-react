@@ -11,15 +11,18 @@ const App = () => {
     const todoData = [
         {
             label: 'Drink cofee',
-            important: false
+            important: false,
+            id: 1
         },
         {
             label: 'Build react App',
-            important: true
+            important: true,
+            id: 2
         },
         {
             label: 'Learn react',
-            important: true
+            important: true,
+            id: 3
         },
     ]
 

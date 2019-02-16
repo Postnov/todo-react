@@ -5,9 +5,8 @@ const TodoList = ({ todos }) => {
 
     const elements = todos.map((item) => {
         return (
-            <li>
-                <TodoItem {...item}
-                />
+            <li key={item.id}>
+                <TodoItem {...item}/>
             </li>
         )
     })
