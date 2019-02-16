@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
@@ -7,36 +7,54 @@ import ItemStatusFilter from '../item-status-filter';
 
 import './app.css';
 
-const App = () => {
+export default class App extends Component {
 
-    const todoData = [
-        {
-            label: 'Drink cofee',
-            important: false,
-            id: 1
-        },
-        {
-            label: 'Build react App',
-            important: true,
-            id: 2
-        },
-        {
-            label: 'Learn react',
-            important: true,
-            id: 3
-        },
-    ]
+    constructor() {
+        super();
 
-    return (
-        <div className="todo-app">
-            <AppHeader toDo={3} done={1}/>
-            <div className="top-panel d-flex">
-                <SearchPanel />
-                <ItemStatusFilter />
+        this.state = {
+            todoData: [
+                {
+                    label: 'Drink cofee',
+                    important: false,
+                    id: 1
+                },
+                {
+                    label: 'Build react App',
+                    important: true,
+                    id: 2
+                },
+                {
+                    label: 'Learn react',
+                    important: true,
+                    id: 3
+                },
+            ]
+        }
+
+        this.removeTodo = (id) => {
+            let {todoData} = this.state;
+            let filterData = todoData.filter((el) => el.id != id);
+
+            this.setState({
+                todoData: filterData
+            });
+        }
+    }
+
+
+    render() {
+        return (
+            <div className="todo-app">
+                <AppHeader toDo={3} done={1}/>
+                <div className="top-panel d-flex">
+                    <SearchPanel />
+                    <ItemStatusFilter />
+                </div>
+                <TodoList
+                    onDeleted={this.removeTodo}
+                    todos={this.state.todoData}/>
             </div>
-            <TodoList todos={todoData}/>
-        </div>
-    )
+        )
+    }
 }
-
-export default App;
