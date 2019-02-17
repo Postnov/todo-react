@@ -51,13 +51,19 @@ export default class App extends Component {
         this.setState({todoData: newArray})
     }
 
+    toggleProperty(arr, id, propName) {
+        let newArray = arr.map((el) => {
+            if (el.id == id) el[propName] = !el[propName];
+            return el;
+        });
+
+        return newArray;
+    }
+
     onToggleImportant = (id) => {
         let {todoData} = this.state;
 
-        let newArray = todoData.map((el) => {
-            if (el.id == id) el.important = !el.important;
-            return el;
-        });
+        let newArray = this.toggleProperty(todoData, id, 'important');
 
         this.setState({todoData: newArray});
     };
@@ -65,10 +71,7 @@ export default class App extends Component {
     onToggleDone = (id) => {
         let {todoData} = this.state;
 
-        let newArray = todoData.map((el) => {
-            if (el.id == id) el.done = !el.done;
-            return el;
-        });
+        let newArray = this.toggleProperty(todoData, id, 'done');
 
         this.setState({todoData: newArray});
     };
