@@ -13,24 +13,20 @@ export default class App extends Component {
     lastId = 100;
 
     state = {
-
         todoData: [
-            {
-                label: 'Drink cofee',
-                important: false,
-                id: 1
-            },
-            {
-                label: 'Build react App',
-                important: true,
-                id: 2
-            },
-            {
-                label: 'Learn react',
-                important: true,
-                id: 3
-            },
+            this.createTodo('Drink cofee'),
+            this.createTodo('Build react App'),
+            this.createTodo('Learn react')
         ]
+    }
+
+    createTodo(label) {
+        return {
+            label: label,
+            id: this.lastId++,
+            important: false,
+            done: false
+        }
     }
 
     removeTodo = (id) => {
@@ -40,15 +36,11 @@ export default class App extends Component {
         this.setState({todoData: filterData});
     }
 
-    addTodo = (text) => {
+    addTodo = (label) => {
 
         let {todoData} = this.state;
 
-        let newItem = {
-            id: this.lastId++,
-            important: false,
-            label: text
-        }
+        let newItem = this.createTodo(label);
 
         let newArray = [
             ...todoData,
@@ -58,6 +50,28 @@ export default class App extends Component {
 
         this.setState({todoData: newArray})
     }
+
+    onToggleImportant = (id) => {
+        let {todoData} = this.state;
+
+        let newArray = todoData.map((el) => {
+            if (el.id == id) el.important = !el.important;
+            return el;
+        });
+
+        this.setState({todoData: newArray});
+    };
+
+    onToggleDone = (id) => {
+        let {todoData} = this.state;
+
+        let newArray = todoData.map((el) => {
+            if (el.id == id) el.done = !el.done;
+            return el;
+        });
+
+        this.setState({todoData: newArray});
+    };
 
 
     render() {
@@ -70,7 +84,10 @@ export default class App extends Component {
                 </div>
                 <TodoList
                     onDeleted={this.removeTodo}
-                    todos={this.state.todoData}/>
+                    todos={this.state.todoData}
+                    onToggleDone={this.onToggleDone}
+                    onToggleImportant={this.onToggleImportant}
+                />
                  <AddTodo
                     onAdded={this.addTodo} />
             </div>
