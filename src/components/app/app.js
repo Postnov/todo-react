@@ -31,7 +31,7 @@ export default class App extends Component {
 
     removeTodo = (id) => {
         let {todoData} = this.state;
-        let filterData = todoData.filter((el) => el.id != id);
+        let filterData = todoData.filter((el) => el.id !== id);
 
         this.setState({todoData: filterData});
     }
@@ -53,7 +53,7 @@ export default class App extends Component {
 
     toggleProperty(arr, id, propName) {
         let newArray = arr.map((el) => {
-            if (el.id == id) el[propName] = !el[propName];
+            if (el.id === id) el[propName] = !el[propName];
             return el;
         });
 
