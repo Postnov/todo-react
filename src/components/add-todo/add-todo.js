@@ -14,11 +14,17 @@ export default class Add extends Component{
         let {onAdded} = this.props;
 
         return (
-            <button
-                className="add-todo btn btn-outline-secondary"
-                onClick={() => onAdded(this.state.text)}
-            >
-            Add item</button>
+            <form className="add-todo d-flex">
+                <input
+                    type="text"
+                    className="form-control"
+                    onChange={this.onInputChange}
+                    placeholder="Enter you task in here"/>
+                <button
+                    className="btn btn-outline-secondary"
+                    onClick={() => onAdded(this.state.text)}>
+                Add item</button>
+            </form>
         )
     }
 }
