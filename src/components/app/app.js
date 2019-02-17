@@ -17,7 +17,8 @@ export default class App extends Component {
             this.createTodo('Drink cofee'),
             this.createTodo('Build react App'),
             this.createTodo('Learn react')
-        ]
+        ],
+        searchQuery: ''
     }
 
     createTodo(label) {
@@ -76,22 +77,33 @@ export default class App extends Component {
         this.setState({todoData: newArray});
     };
 
+    searchFilter = (items, query) => {
+
+        let newArray = items.filter((el) => {
+            return el.label.indexOf(query) !== -1
+        });
+
+        return newArray;
+
+    }
 
     render() {
         let {todoData} = this.state
         let doneCount = todoData.filter((el) => el.done).length;
         let todoCount = todoData.length - doneCount;
+        let visibleItems = this.searchFilter(todoData, this.state.searchQuery);
 
         return (
             <div className="todo-app">
                 <AppHeader toDo={todoCount} done={doneCount}/>
                 <div className="top-panel d-flex">
-                    <SearchPanel />
+                    <SearchPanel
+                        onSearch={(value) => this.setState({ searchQuery: value })}/>
                     <ItemStatusFilter />
                 </div>
                 <TodoList
                     onDeleted={this.removeTodo}
-                    todos={todoData}
+                    todos={visibleItems}
                     onToggleDone={this.onToggleDone}
                     onToggleImportant={this.onToggleImportant}
                 />

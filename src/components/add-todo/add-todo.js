@@ -5,7 +5,7 @@ import './add-todo.css'
 export default class Add extends Component{
 
     state = {
-        text: ''
+        text: '',
     }
 
     onInputChange = (e) => {
