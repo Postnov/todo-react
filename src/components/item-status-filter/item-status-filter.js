@@ -6,9 +6,9 @@ export default class ItemStatusFilter extends Component {
 
 	state = {
 		filterButtons: [
-			{name: 'All', type: 'all', active: true, id: 1},
-			{name: 'Active', type: 'active', active: false, id: 2},
-			{name: 'Done', type: 'done', active: false, id: 3},
+			{name: 'All', type: 'all', active: true,},
+			{name: 'Active', type: 'active', active: false,},
+			{name: 'Done', type: 'done', active: false,},
 		]
 	};
 
@@ -27,7 +27,7 @@ export default class ItemStatusFilter extends Component {
 
 			return (
 				<button
-					key={el.id}
+					key={el.name}
 					type="button"
 					className={className}
 					onClick={() => onFilterItems(el.type)}
