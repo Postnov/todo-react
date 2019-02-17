@@ -4,42 +4,59 @@ import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
 import TodoList from '../todo-list';
 import ItemStatusFilter from '../item-status-filter';
+import AddTodo from '../add-todo';
 
 import './app.css';
 
 export default class App extends Component {
 
-    constructor() {
-        super();
+    lastId = 100;
 
-        this.state = {
-            todoData: [
-                {
-                    label: 'Drink cofee',
-                    important: false,
-                    id: 1
-                },
-                {
-                    label: 'Build react App',
-                    important: true,
-                    id: 2
-                },
-                {
-                    label: 'Learn react',
-                    important: true,
-                    id: 3
-                },
-            ]
+    state = {
+
+        todoData: [
+            {
+                label: 'Drink cofee',
+                important: false,
+                id: 1
+            },
+            {
+                label: 'Build react App',
+                important: true,
+                id: 2
+            },
+            {
+                label: 'Learn react',
+                important: true,
+                id: 3
+            },
+        ]
+    }
+
+    removeTodo = (id) => {
+        let {todoData} = this.state;
+        let filterData = todoData.filter((el) => el.id != id);
+
+        this.setState({todoData: filterData});
+    }
+
+    addTodo = (text) => {
+
+        let {todoData} = this.state;
+
+        let newItem = {
+            id: this.lastId++,
+            important: false,
+            label: text
         }
 
-        this.removeTodo = (id) => {
-            let {todoData} = this.state;
-            let filterData = todoData.filter((el) => el.id != id);
+        let newArray = [
+            ...todoData,
+            newItem
+        ];
 
-            this.setState({
-                todoData: filterData
-            });
-        }
+
+        this.setState({todoData: newArray})
     }
 
 
@@ -54,6 +71,8 @@ export default class App extends Component {
                 <TodoList
                     onDeleted={this.removeTodo}
                     todos={this.state.todoData}/>
+                 <AddTodo
+                    onAdded={this.addTodo} />
             </div>
         )
     }
