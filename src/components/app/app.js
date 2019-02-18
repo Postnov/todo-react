@@ -18,6 +18,11 @@ export default class App extends Component {
             this.createTodo('Build react App'),
             this.createTodo('Learn react')
         ],
+        viewsTodo: [
+            this.createTodo('Drink cofee'),
+            this.createTodo('Build react App'),
+            this.createTodo('Learn react')
+        ],
         searchQuery: '',
         filter: 'all'
     }
@@ -102,18 +107,23 @@ export default class App extends Component {
     };
 
     onFilterChange = (type) => {
-        this.setState({ filter: type  })
+        this.setState({
+            filter: type,
+            viewsTodo: this.filterItems(this.state.todoData, type)
+        })
     };
 
     onSearchChange = (query) => {
-        this.setState({ searchQuery: query  })
+        this.setState({
+            searchQuery: query,
+            viewsTodo: this.searchFilter(this.state.todoData, query)
+        })
     }
 
     render() {
-        let {todoData, filter} = this.state
+        let {todoData, filter, viewsTodo} = this.state
         let doneCount = todoData.filter((el) => el.done).length;
         let todoCount = todoData.length - doneCount;
-        let visibleItems = this.searchFilter(this.filterItems(todoData, this.state.filter), this.state.searchQuery);
 
         return (
             <div className="todo-app">
@@ -128,7 +138,7 @@ export default class App extends Component {
                 </div>
                 <TodoList
                     onDeleted={this.removeTodo}
-                    todos={visibleItems}
+                    todos={viewsTodo}
                     onToggleDone={this.onToggleDone}
                     onToggleImportant={this.onToggleImportant}
                 />
