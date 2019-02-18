@@ -12,7 +12,7 @@ export default class SearchPanel extends Component {
                 type="text"
                 className="form-control search-panel"
                 placeholder="Search"
-                onChange={(e) => onSearch(e.target.value)}/>
+                onChange={onSearch}/>
         );
     }
 

@@ -113,10 +113,12 @@ export default class App extends Component {
         })
     };
 
-    onSearchChange = (query) => {
+    onSearchChange = (e) => {
+        let {value} = e.target;
+
         this.setState({
-            searchQuery: query,
-            viewsTodo: this.searchFilter(this.state.todoData, query)
+            searchQuery: value,
+            viewsTodo: this.searchFilter(this.state.todoData, value)
         })
     }
 
